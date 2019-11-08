@@ -59,7 +59,7 @@ const todoApis = {
 		});
 	},
 	updateTodoLists: (req, res) => {
-		let { id, name } = req.body;
+		let { id, title, desc } = req.body;
 		let query =
 			`UPDATE todoLists SET title = ${title}, description = ${desc} dateUpdated = NOW() WHERE id = ${id}`;
 		db.query(query, (err, result) => {
