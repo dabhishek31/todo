@@ -1,0 +1,23 @@
+{
+  "name": "todoapi",
+  "version": "1.0.0",
+  "description": "To Do Application (APIs) using NodeJS & MySQL",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dabhishek31/todo.git"
+  },
+  "author": "Abhishek Das",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dabhishek31/todo/issues"
+  },
+  "homepage": "https://github.com/dabhishek31/todo#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}
