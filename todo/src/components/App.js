@@ -1,31 +1,18 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from '../routes';
+import Sidebar from './sidebar';
 class App extends Component {
 	render() {
 		return (
 			<Router>
-				<Link exact to="/">To Do Application</Link>
-				<Link to="/create/note">Create Note</Link>
-				<Link to="/create/bucket">Create Bucket</Link>
-				<Routes />
+				<div className="todoContainer">
+					<Sidebar />
+					<Routes />
+				</div>
 			</Router>
 		);
 	}
 }
 
-const mapStateToProps = state => {
-	return {
-		// selected: state.getIn(['globalState', 'selectedHeader']),
-	};
-};
-
-const mapDispatchToProps = dispatch => ({
-	// messageTabChange: data => dispatch(messageTabChange(data)),
-});
-
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(App);
+export default App;
