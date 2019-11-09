@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from './Header';
 import Body from './Body';
 import { getBucketAndNotes } from '../../actions';
 class index extends Component {
@@ -9,18 +8,13 @@ class index extends Component {
 		props.getBucketAndNotes();
 	}
 	render() {
-		return (
-			<>
-				<Header />
-				<Body />
-			</>
-		);
+		return <Body />;
 	}
 }
 
 const mapStateToProps = state => ({
-  dashboardData: state.dashboardData,
-})
+	dashboardData: state.dashboardData,
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	getBucketAndNotes: () => {
