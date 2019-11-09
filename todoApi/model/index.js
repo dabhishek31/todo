@@ -4,13 +4,21 @@ const response = {
 };
 
 const todoApis = {
-	getBucketLists: (req, res) => {
+	getNoteBucketList: (req, res) => {
 		let query = 'SELECT * FROM `todoBuckets` ORDER BY bucketCreated DESC';
 		db.query(query, (err, result) => {
 			if (err) throw err;
-			response.data = result;
-			response.success = true;
-			res.json(response);
+			let finalData = {
+				buckets: result,
+			};
+			let sql = 'SELECT * FROM `todoLists` ORDER BY datePosted DESC';
+			db.query(sql, (err, result) => {
+				if (err) throw err;
+				// finalData.notes = result;
+				response.data = { ...finalData, notes: result };
+				response.success = true;
+				res.json(response);
+			});
 		});
 	},
 	getTodoLists: (req, res) => {
@@ -49,8 +57,7 @@ const todoApis = {
 	},
 	updateTodoBuckets: (req, res) => {
 		let { id, name } = req.body;
-		let query =
-			`UPDATE todoBuckets SET bucketName = ${name}, bucketUpdated = NOW() WHERE id = ${id}`;
+		let query = `UPDATE todoBuckets SET bucketName = ${name}, bucketUpdated = NOW() WHERE id = ${id}`;
 		db.query(query, (err, result) => {
 			if (err) throw err;
 			response.data = result;
@@ -60,8 +67,7 @@ const todoApis = {
 	},
 	updateTodoLists: (req, res) => {
 		let { id, title, desc } = req.body;
-		let query =
-			`UPDATE todoLists SET title = ${title}, description = ${desc} dateUpdated = NOW() WHERE id = ${id}`;
+		let query = `UPDATE todoLists SET title = ${title}, description = ${desc} dateUpdated = NOW() WHERE id = ${id}`;
 		db.query(query, (err, result) => {
 			if (err) throw err;
 			response.data = result;
@@ -72,9 +78,9 @@ const todoApis = {
 	getListById: (req, res) => {
 		let { id, type } = req.body;
 		let query = '';
-		if(type === 'file'){
+		if (type === 'file') {
 			query = `SELECT * FROM todoLists WHERE id = ${id}`;
-		}else{
+		} else {
 			query = `SELECT * FROM todoBuckets WHERE id = ${id}`;
 		}
 		db.query(query, (err, result) => {
