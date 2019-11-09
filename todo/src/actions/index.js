@@ -13,10 +13,9 @@ export const loaderToggler = () => ({
 export const getBucketAndNotes = () => {
 	return dispatch => {
 		// dispatch(loaderToggler());
-		return fetch(`http://localhost:5000/api/getBucketList`)
+		return fetch(`http://localhost:5000/api/getNoteBucketList`)
 			.then(res => res.json())
 			.then(data => {
-				console.log(data, '--output');
 				dispatch(receivedNotesAndBuckets(data));
 			})
 			.catch(err => {
