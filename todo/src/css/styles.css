@@ -70,7 +70,7 @@ a{
 }
 
 .app-name-wrapper{
-  height: 154px;
+  /* height: 154px; */
   width: 90%;
   margin: 0 auto;
 }
@@ -84,7 +84,7 @@ a{
 
 .app-name{
   display: flex;
-  margin: 43px 0px 0px 0px;
+  margin: 25px 0px 20px 0px;
 }
 /* .app-name:hover{
   background: rgb(10, 128, 63);
@@ -118,20 +118,32 @@ a{
 .sidebar-sub-menu{
   display: flex;
 }
+.sidebar-sub-menu div{
+  width: 50%;
+}
+
+.sidebar-sub-menu img:first-child{
+  width: 82px;
+  height: 82px;
+}
 
 .sidebar-sub-menu:hover{
-  background-image: linear-gradient(to top, #051937, #061f44, #072550, #092c5e, #0c326b);
+  /* background-image: linear-gradient(to top, #051937, #061f44, #072550, #092c5e, #0c326b); */
+  background: #003d62;
   border-radius: 5px;
+}
+
+.sub-menu-list{
+  margin: auto;
 }
 
 .sub-menu-text{
   font-style: normal;
   font-weight: bold;
   font-size: 19px;
-  line-height: 35px;
+  line-height: 27px;
   text-align: left;
   letter-spacing: 0.17em;
-  padding-top: 10px;
 }
 
 .sixty{
@@ -171,10 +183,16 @@ a{
 .bodyHeader{
   display: flex;
   justify-content: space-between;
-  height: 15%;
+  height: 10%;
+  padding: 10px;
 }
 
 .bodyNotesList{
+  height: 85%;
+  overflow-y: scroll;
+}
+
+.bodycreate{
   height: 85%;
 }
 
@@ -189,4 +207,101 @@ a{
 
 .bodyHeader div,.bodyHeader img{
   margin: auto 0;
+}
+
+
+/* Dashboard Lists Starts */
+.lists{
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 10px;
+  color: #FCF6F5;
+  cursor: pointer;
+}
+.lists:hover{
+  background: #003d62;
+}
+.bucket-icon{
+  width: 10%;
+  margin: auto;
+}
+.bucket-icon img{
+  width: 50px;
+  height: 50px;
+}
+
+.bucket-name{
+  width: 50%;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: 0.10em;
+  margin: auto;
+}
+
+.bucket-info{
+  width:40%;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  margin: auto;
+  text-align: right;
+}
+
+.bucket-info img{
+  width: 50px;
+  height: 50px;
+}
+
+.bucket-info div{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bucket-info div div{
+  margin: auto 0 auto auto;
+}
+
+.bucket-info div input{
+  width: 30px;
+  height: 30px;
+}
+
+/* Create Todo Note form */
+.create-form{
+  padding: 10px;
+}
+
+.form-group{
+  margin-bottom: 15px;
+}
+
+.form-group div{
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 30px;
+  letter-spacing: 0.10em;
+  color: #FCF6F5;
+}
+
+.form-group input,textarea{
+  background: #FCF6F5;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.form-group input{
+  height: 30px;
+}
+
+.form-group button{
+  background: #FCF6F5;
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.19em;
+  color: #2BAE66;
+  padding: 5px 20px;
 }

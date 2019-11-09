@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Routes from '../routes';
 import Sidebar from './sidebar';
-import Header from './Dashboard/Header';
 class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+	}
 	render() {
 		return (
 			<Router>
 				<div className="todoContainer">
 					<Sidebar />
-					<div className="header-route-container">
-						<Header />
-						<Routes />
-					</div>
+					<Routes />
 				</div>
 			</Router>
 		);
 	}
 }
 
-export default App;
+export default connect(
+	null,
+	null
+)(App);

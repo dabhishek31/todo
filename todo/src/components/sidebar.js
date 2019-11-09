@@ -21,8 +21,8 @@ const sidebar = () => {
 			<div className="sub-menu ">
 				<Link to="/create/bucket" className="sidebar-sub-menu font-style">
 					<img src={folder} />
-					<div>
-						<div class="sub-menu-text">
+					<div className="sub-menu-list">
+						<div className="sub-menu-text">
 							CREATE
 							<br />
 							BUCKET
@@ -32,8 +32,8 @@ const sidebar = () => {
 				</Link>
 				<Link to="/create/note" className="sidebar-sub-menu font-style">
 					<img src={createNote} />
-					<div>
-						<div class="sub-menu-text">
+					<div className="sub-menu-list">
+						<div className="sub-menu-text">
 							CREATE
 							<br />
 							NOTE

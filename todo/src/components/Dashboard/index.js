@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Body from './Body';
+import Header from '../Header';
 import { getBucketAndNotes } from '../../actions';
 class index extends Component {
 	constructor(props) {
@@ -8,7 +9,14 @@ class index extends Component {
 		props.getBucketAndNotes();
 	}
 	render() {
-		return <Body />;
+		return (
+			<div className="header-route-container">
+				<Header {...this.props} />
+				<div className="dashboardContents">
+					{this.props.dashboardData && <Body {...this.props.dashboardData} />}
+				</div>
+			</div>
+		);
 	}
 }
 
