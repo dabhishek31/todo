@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../Header';
 import TodoForm from '../CreateTodo/TodoForm';
-import { getBucketLists, saveTodoList, getNotebyId, updateTodoList } from '../../actions';
+import { saveTodoList, getNotebyId, updateTodoList } from '../../actions/thunk';
+import { getBucketLists } from '../../actions/thunk';
 
 class index extends Component {
 	constructor(props) {

@@ -8,8 +8,9 @@ import tickEmpty from '../../img/tick-empty.png';
 import tickFull from '../../img/tick-full.png';
 import { connect } from 'react-redux';
 import ViewNotes from './ViewNotes';
-import { deleteNoteFromTbl, storeNoteId, toggleMarkerList, getNotebyId } from '../../actions';
+import { storeNoteId } from '../../actions';
 import { getFormattedTime } from '../../Utils';
+import { deleteNoteFromTbl, toggleMarkerList, getNotebyId } from '../../actions/thunk';
 
 const Notes = props => {
 	const [isShowing, setIsShowing] = useState(false);
@@ -28,7 +29,6 @@ const Notes = props => {
 			type: value,
 			bId: props.bucketId,
 		});
-		
 	};
 
 	const editFunc = (e, id) => {
@@ -142,7 +142,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 		dispatch(toggleMarkerList(data));
 	},
 	getNotebyId: id => {
-    dispatch(getNotebyId(id))
+		dispatch(getNotebyId(id));
 	},
 });
 const mapStateToProps = state => ({
