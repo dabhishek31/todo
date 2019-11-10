@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const app = express();
 const port = 5000;
 const db = require('./dbConnection');
@@ -14,7 +15,9 @@ db.connect(err => {
 
 global.db = db;
 
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use('/api', todoRoutes);
 
 app.listen(port, () => {
