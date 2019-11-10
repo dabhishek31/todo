@@ -238,6 +238,9 @@ a{
   line-height: 22px;
   letter-spacing: 0.10em;
   margin: auto;
+  white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .bucket-info{

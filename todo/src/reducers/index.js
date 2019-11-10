@@ -1,10 +1,10 @@
-import { RECEIVE_POSTS, LOADER_TOGGLER } from '../actions';
+import { RECEIVE_POSTS, UPDATE_BUCKET_ID, RECEIVE_BUCKETS } from '../actions';
 
 const initialState = {
 	dashboardData: null,
-	bucketId: 1
+	bucketId: 1,
+	buckets: {},
 };
-
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -14,9 +14,13 @@ const reducer = (state = initialState, action) => {
 				return { ...state, dashboardData: data };
 			}
 			return state;
-		//  return { ...state, channel: action.channel };
-		// case LOADER_TOGGLER:
-		// 	return { ...state, loading: true };
+		case UPDATE_BUCKET_ID:
+			return { ...state, bucketId: action.bucketId };
+		case RECEIVE_BUCKETS:
+			if (action.resp.success) {
+				return { ...state, buckets: action.resp.data };
+			}
+			return state;
 		default:
 			return state;
 	}
