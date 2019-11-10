@@ -36,8 +36,14 @@ const Body = props => {
 			</div>
 			<hr />
 			<div className="bodyNotesList">
-				<Buckets buckets={props.buckets} />
-				<Notes notes={props.notes} getUpdatedBucketsAndNotes={props.getUpdatedBucketsAndNotes} />
+				{!props.buckets.length && !props.notes.length ? (
+					<h2 className='emptymessage'>Please Add New Bucket/Note</h2>
+				) : (
+					<>
+						<Buckets buckets={props.buckets} />
+						<Notes notes={props.notes} getUpdatedBucketsAndNotes={props.getUpdatedBucketsAndNotes} />
+					</>
+				)}
 			</div>
 		</div>
 	);
