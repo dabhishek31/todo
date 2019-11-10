@@ -39,7 +39,7 @@ const todoApis = {
 		});
 	},
 	addLists: (req, res) => {
-		let { title, description, bucketId } = req.body;
+		let { title, description, bucketId } = req.body.data;
 		if (title.trim() !== '') {
 			let stmt =
 				'INSERT INTO `todolists`(`title`, `description`, `datePosted`, `dateUpdated`, `buckedId`) VALUES (?,?,NOW(),NOW(),?)';

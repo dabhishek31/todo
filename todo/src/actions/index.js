@@ -54,3 +54,22 @@ export const getBucketLists = () => {
 			});
 	};
 };
+
+export const saveTodoList = data => {
+	return dispatch => {
+		return fetch(`http://localhost:5000/api/addList`, {
+			method: 'POST',
+			headers: {
+				'Content-Type':'application/json'
+			},
+			body: JSON.stringify({data}),
+		})
+			.then(res => res.json())
+			.then(data => {
+				console.log(data, '--err');
+			})
+			.catch(err => {
+				console.log(err, '--err');
+			});
+	};
+};
