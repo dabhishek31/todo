@@ -4,7 +4,6 @@ import back from '../../img/back.png';
 import Buckets from './Buckets';
 import Notes from './Notes';
 
-
 const Body = props => {
 	const getId = () => {
 		let data = props.allBuckets.filter(obj => {
@@ -38,7 +37,7 @@ const Body = props => {
 			<hr />
 			<div className="bodyNotesList">
 				<Buckets buckets={props.buckets} />
-				<Notes notes={props.notes} />
+				<Notes notes={props.notes} getUpdatedBucketsAndNotes={props.getUpdatedBucketsAndNotes} />
 			</div>
 		</div>
 	);

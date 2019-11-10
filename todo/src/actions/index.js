@@ -42,6 +42,27 @@ export const getBucketAndNotes = bucketId => {
 	};
 };
 
+export const deleteNoteFromTbl = (id) => {
+	return dispatch => {
+		return fetch(`http://localhost:5000/api/deleteBucketsNotes`,{
+			method: 'POST',
+			headers: {
+				'Content-Type':'application/json'
+			},
+			body: JSON.stringify(id),
+		})
+			.then(res => res.json())
+			.then(data => {
+				// dispatch(receivedBuckets(data));
+				dispatch(getBucketAndNotes(id.bId));
+				console.log(data);
+			})
+			.catch(err => {
+				console.log(err, '--err');
+			});
+	};
+};
+
 export const getBucketLists = () => {
 	return dispatch => {
 		return fetch(`http://localhost:5000/api/getBucketList`)

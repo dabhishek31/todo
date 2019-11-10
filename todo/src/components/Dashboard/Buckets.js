@@ -3,12 +3,35 @@ import { connect } from 'react-redux';
 import bucket from '../../img/bucket.png';
 import info from '../../img/info.png';
 import deletes from '../../img/delete.png';
-import { setBucketIdInRedux } from '../../actions';
+import { setBucketIdInRedux, deleteNoteFromTbl } from '../../actions';
+import swal from 'sweetalert';
 
 const Buckets = props => {
 	const setBucketId = (event, id) => {
 		event.stopPropagation();
 		props.setBucketId(id);
+	};
+	const deleteFunc = (e, id) => {
+		e.stopPropagation();
+		swal({
+			title: 'Are you sure?',
+			text: 'Once deleted, you will not be able to recover this note!',
+			icon: 'warning',
+			buttons: true,
+			dangerMode: true,
+		}).then(willDelete => {
+			if (willDelete) {
+				props.deleteNote({
+					id,
+					multiDel: false,
+					type: 'bucket',
+					bId: props.bucketId,
+				});
+				swal('Poof! Your imaginary file has been deleted!', {
+					icon: 'success',
+				});
+			}
+		});
 	};
 	return (
 		<>
@@ -29,7 +52,12 @@ const Buckets = props => {
 									<div>{data.bucketCreated}</div>
 									<div>
 										<img src={info} alt="Click here to check info" title="Information" />
-										<img src={deletes} alt="Click here to delete buckets" title="Delete" />
+										<img
+											src={deletes}
+											alt="Click here to delete buckets"
+											title="Delete"
+											onClick={e => deleteFunc(e, data.id)}
+										/>
 									</div>
 								</div>
 							</div>
@@ -45,9 +73,16 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 	setBucketId: bucketId => {
 		dispatch(setBucketIdInRedux(bucketId));
 	},
+	deleteNote: id => {
+		dispatch(deleteNoteFromTbl(id));
+	},
+});
+
+const mapStateToProps = state => ({
+	bucketId: state.bucketId,
 });
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(Buckets);
