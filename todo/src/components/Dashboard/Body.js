@@ -4,7 +4,6 @@ import back from '../../img/back.png';
 import Buckets from './Buckets';
 import Notes from './Notes';
 
-
 const Body = props => {
 	const getId = () => {
 		let data = props.allBuckets.filter(obj => {
@@ -33,12 +32,18 @@ const Body = props => {
 						}}
 					/>
 				)}
-				<img src={bin} className="sixty" title="Select Multiple Notes To Delete" />
+				{/* <img src={bin} className="sixty" title="Select Multiple Notes To Delete" /> */}
 			</div>
 			<hr />
 			<div className="bodyNotesList">
-				<Buckets buckets={props.buckets} />
-				<Notes notes={props.notes} />
+				{!props.buckets.length && !props.notes.length ? (
+					<h2 className='emptymessage'>Please Add New Bucket/Note</h2>
+				) : (
+					<>
+						<Buckets buckets={props.buckets} />
+						<Notes notes={props.notes} getUpdatedBucketsAndNotes={props.getUpdatedBucketsAndNotes} />
+					</>
+				)}
 			</div>
 		</div>
 	);

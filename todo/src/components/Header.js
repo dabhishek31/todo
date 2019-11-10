@@ -10,6 +10,8 @@ const Header = props => {
 				return 'CREATE NOTES';
 			case '/create/bucket':
 				return 'CREATE BUCKETS';
+			case '/edit/note':
+				return 'EDIT NOTE';
 			default:
 				return 'PAGE NOT FOUND';
 		}

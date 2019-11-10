@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+
 
 const TodoForm = props => {
+	const bootstrap = () => {
+		const { title, description } = props.note;
+		const item = {
+			title: title == '' ? '' : title,
+			description: description == '' ? '' : description,
+			bucketId: props.bucketId,
+		};
+		return item;
+	};
+
 	const [listDetails, setListDetails] = React.useState({
 		title: '',
 		description: '',
@@ -9,16 +21,27 @@ const TodoForm = props => {
 
 	const [error, setErrorMessage] = React.useState('');
 
+	useEffect(() => {
+		if (props.note.title) {
+			setListDetails(bootstrap());
+		}
+	}, [props.note]);
+
 	const saveListForm = e => {
 		e.preventDefault();
 		if (listDetails.title.trim() !== '') {
 			setErrorMessage('');
+			listDetails.id = props.note.id;
 			props.saveTodoLists(listDetails);
-			setListDetails({
-				title: '',
-				description: '',
-				bucketId: props.bucketId,
-			});
+			if (!props.noteFlg) {
+				setListDetails({
+					title: '',
+					description: '',
+					bucketId: props.bucketId,
+				});
+			} else {
+				props.history.push('/');
+			}
 		} else {
 			setErrorMessage('Please provide title of the note');
 		}
@@ -31,7 +54,7 @@ const TodoForm = props => {
 	return (
 		<div className="body-component">
 			<div className="bodyHeader">
-				<div>ADD YOUR NOTES HERE: </div>
+				<div>{props.noteFlg ? 'EDIT' : 'ADD'} YOUR NOTES HERE: </div>
 			</div>
 			<hr />
 			<div className="bodycreate">
@@ -73,4 +96,4 @@ const TodoForm = props => {
 	);
 };
 
-export default TodoForm;
+export default withRouter(TodoForm);

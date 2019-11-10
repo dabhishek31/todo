@@ -1,18 +1,47 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Header from '../Header';
 import BucketForm from './BucketForm';
+import { getBucketLists, saveBucketList } from '../../actions';
 class index extends Component {
-  render() {
-    return (
-      <div className="header-route-container">
+	constructor(props) {
+		super(props);
+		this.state = {};
+	}
+	saveBucketLists = (data) => {
+		this.props.saveBucketListToDb(data);
+	}
+	render() {
+		return (
+			<div className="header-route-container">
 				<Header {...this.props} />
 				<div className="dashboardContents">
-          <BucketForm />
+					<BucketForm
+						saveBucketLists={this.saveBucketLists}
+						buckets={this.props.buckets}
+						bucketId={this.props.bucketId}
+					/>
 				</div>
 			</div>
-    )
-  }
+		);
+	}
 }
 
+const mapStateToProps = state => ({
+	buckets: state.buckets,
+	bucketId: state.bucketId,
+});
 
-export default index;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+	getBuckets: bucketId => {
+		dispatch(getBucketLists(bucketId));
+	},
+	saveBucketListToDb: data => {
+		dispatch(saveBucketList(data));
+	},
+});
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(index);

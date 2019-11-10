@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Dashboard from '../components/Dashboard';
 import CreateTodo from '../components/CreateTodo';
 import CreateBucket from '../components/CreateBucket';
+import EditNotes from '../components/EditNotes';
 
 const index = () => {
 	return (
@@ -10,7 +11,7 @@ const index = () => {
 			<Route exact path="/" component={Dashboard} />
 			<Route path="/create/note" component={CreateTodo} />
 			<Route path="/create/bucket" component={CreateBucket} />
-			{/* <Route path="/view/note" component={Dashboard} /> */}
+			<Route path="/edit/note" component={EditNotes} />
 		</>
 	);
 };

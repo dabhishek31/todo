@@ -330,33 +330,61 @@ a{
   background: white;
   border: 1px solid #d0cccc;
   box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2), 0 7px 20px 0 rgba(0,0,0,0.17);
-  margin: 100px auto 0;
-  transition: all .8s;
-  width: 60%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
 }
 
 .modal-header {
-  background: #263238;
+  background-image: linear-gradient(to top, #008a7c, #2bae66);
   height: 40px;
   line-height: 40px;
   padding: 5px 20px;
   text-align: right;
 }
 
-.modal-header h3 {
-  color: white;
+.modal-header div {
   float: left;
   margin: 0;
   padding: 0;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.10em;
+  color: #FCF6F5;
+}
+.emptymessage{
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 30px;
+    letter-spacing: 0.06em;
+    color: #FCF6F5;
+    margin: 20px auto;
 }
 
 .modal-body {
   padding: 10px 15px;
-  text-align: center;
+  text-align: left;
+  
+  margin-bottom: 15px;
+  
+}
+
+.modal-body p {
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 300px;
+  overflow-wrap: break-word;
+}
+
+.modal-body img{
+  height: 50px;
+  width: 50px;
 }
 
 .modal-footer {
-  background: #263238;
+  background-image: linear-gradient(to top, #008a7c, #2bae66);
   height: 35px;
   padding: 15px;
 }
@@ -373,24 +401,24 @@ a{
   color: black;
 }
 
-.btn-cancel, .btn-continue {
-  background: coral;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-  outline: none;
-  padding: 10px;
+.btn-cancel{
+  background: #FCF6F5;
+  border-radius: 4px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.19em;
+  color: #2BAE66;
+  padding: 5px 20px;
 }
 
 .btn-cancel {
-  background-color: #b71c1c;
-  float: left;
+  float: right;
 }
 
-.btn-continue {
-  background-color: #1b5e20;
-  float: right;
+.btn-continue img{
+  width: 50px;
+  height: 50px;
 }
 
 .back-drop {
@@ -399,10 +427,72 @@ a{
   position: fixed;
   transition: all 1.3s;
   width: 100%;
+  top: 0;
+  left:0;
 }
 
-.open-modal-btn {
-  margin: 15px;
-  padding: 10px;
-  font-weight: bold;
+.modal-text-header{
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-text-header div{
+  margin: auto 0;
+}
+
+@media only screen and (max-width:1173px){
+  .app-name img{
+    width: 80px;
+    height: 80px;
+  }
+  .app-name-container{
+    padding: 8px 0px 13px 0px;
+  }
+  .main-text{
+    font-size: 23px;
+  }
+  .sub-text {
+    font-size: 17px !important;
+}
+}
+
+
+@media only screen and (max-width:991px){
+  .todoContainer{
+    display: block;
+    width: 90%;
+  }
+  .sidebarContents{
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+  }
+  .header-route-container{
+    width: 100%;
+  }
+  .app-name{
+    margin: 0px;
+  }
+  .hr-sidebar {
+    border: 0.7px solid #FCF6F5;
+    margin-bottom: 0px;
+}
+}
+
+
+@media only screen and (max-width:575px){
+  .lists {
+    display: block;
+  }
+  .lists div{
+    width: 100%;
+  }
+  .modal-wrapper {
+    width: 95%;
+}
+.modal-body p {
+  height: 150px;
+  overflow: scroll;
+  overflow-wrap: break-word;
+}
 }
