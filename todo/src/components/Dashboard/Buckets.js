@@ -49,7 +49,19 @@ const Buckets = props => {
 								<div className="bucket-info">
 									<div>{getFormattedTime(data.bucketCreated)}</div>
 									<div>
-										<img src={info} alt="Click here to check info" title="Information" />
+										<img
+											src={info}
+											alt="Click here to check info"
+											title="Information"
+											onClick={e => {
+												e.stopPropagation();
+												swal({
+													html: true,
+													title: 'Created At: ' + getFormattedTime(data.bucketCreated),
+													text: 'Updated At: ' + getFormattedTime(data.bucketUpdated),
+												});
+											}}
+										/>
 										<img
 											src={deletes}
 											alt="Click here to delete buckets"
