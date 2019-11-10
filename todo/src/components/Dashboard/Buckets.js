@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import swal from 'sweetalert';
 import bucket from '../../img/bucket.png';
 import info from '../../img/info.png';
 import deletes from '../../img/delete.png';
 import { setBucketIdInRedux, deleteNoteFromTbl } from '../../actions';
-import swal from 'sweetalert';
+import { getFormattedTime } from '../../Utils';
 
 const Buckets = props => {
 	const setBucketId = (event, id) => {
@@ -27,9 +28,6 @@ const Buckets = props => {
 					type: 'bucket',
 					bId: props.bucketId,
 				});
-				swal('Poof! Your imaginary file has been deleted!', {
-					icon: 'success',
-				});
 			}
 		});
 	};
@@ -49,7 +47,7 @@ const Buckets = props => {
 									BUCKET
 								</div>
 								<div className="bucket-info">
-									<div>{data.bucketCreated}</div>
+									<div>{getFormattedTime(data.bucketCreated)}</div>
 									<div>
 										<img src={info} alt="Click here to check info" title="Information" />
 										<img

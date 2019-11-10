@@ -67,10 +67,8 @@ const todoApis = {
 			let stmt =
 				'INSERT INTO `todobuckets`(`bucketName`, `bucketParent`, `bucketCreated`, `bucketUpdated`) VALUES (?,?,NOW(),NOW())';
 			let todo = [bucketName, bucketParent];
-			console.log(stmt);
-			console.log(todo);
 			db.query(stmt, todo, (err, result) => {
-				// if (err) throw err;
+				if (err) throw err;
 				response.data = err;
 				response.success = true;
 				res.json(response);
@@ -96,7 +94,6 @@ const todoApis = {
 	deleteBucketsNotes: (req, res) => {
 		let { id, multiDel, type } = req.body;
 		let query = '';
-		let secondQuery = '';
 		if (multiDel) {
 			multiId = id.join(',');
 			query = `DELETE FROM todoLists WHERE id IN (${multiId})`;
@@ -107,17 +104,8 @@ const todoApis = {
 				query = `DELETE FROM todoBuckets WHERE id = ${id}; DELETE FROM todolists WHERE buckedId = ${id}; DELETE FROM todoBuckets WHERE bucketParent = ${id}`;
 			}
 		}
-		console.log(query);
 		db.query(query, (err, result) => {
 			if (err) throw err;
-			// if (secondQuery !== '') {
-			// 	db.query(secondQuery, (err, result) => {
-			// 		if (err) throw err;
-			// 		response.data = result;
-			// 		response.success = true;
-			// 		res.json(response);
-			// 	});
-			// } else {
 			response.data = result;
 			response.success = true;
 			res.json(response);
@@ -133,26 +121,32 @@ const todoApis = {
 	// 		res.json(response);
 	// 	});
 	// },
-	// updateTodoLists: (req, res) => {
-	// 	let { id, title, desc } = req.body;
-	// 	let query = `UPDATE todoLists SET title = ${title}, description = ${desc} dateUpdated = NOW() WHERE id = ${id}`;
-	// 	db.query(query, (err, result) => {
-	// 		if (err) throw err;
-	// 		response.data = result;
-	// 		response.success = true;
-	// 		res.json(response);
-	// 	});
-	// },
-	// toggleDone: (req, res) => {
-	// 	let { id, type } = req.body;
-	// 	let query = `UPDATE todoLists SET done = ${type} dateUpdated = NOW() WHERE id = ${id}`;
-	// 	db.query(query, (err, result) => {
-	// 		if (err) throw err;
-	// 		response.data = result;
-	// 		response.success = true;
-	// 		res.json(response);
-	// 	});
-	// },
+	updateNotes: (req, res) => {
+		let { id, title, description, bucketId } = req.body;
+		let query = `UPDATE todolists SET title=?,description=?,dateUpdated=NOW(),buckedId=? WHERE id = ?`;
+
+		let params = [title, description, bucketId, id];
+
+		db.query(query, params, (err, result) => {
+			if (err) throw err;
+			response.data = result;
+			response.success = true;
+			res.json(response);
+		});
+	},
+	toggleDone: (req, res) => {
+		let { id, type } = req.body;
+
+		let query = `UPDATE todolists SET done=? WHERE id =?`;
+		let params = [type, id];
+
+		db.query(query, params, (err, result) => {
+			if (err) throw err;
+			response.data = result;
+			response.success = true;
+			res.json(response);
+		});
+	},
 };
 
 module.exports = todoApis;

@@ -6,10 +6,11 @@ import deletes from '../../img/delete.png';
 import tickEmpty from '../../img/tick-empty.png';
 import tickFull from '../../img/tick-full.png';
 import { connect } from 'react-redux';
-import { deleteNoteFromTbl,storeNoteId } from '../../actions';
+import { deleteNoteFromTbl, storeNoteId, toggleMarkerList } from '../../actions';
+import { getFormattedTime } from '../../Utils';
 
 const ViewNotes = props => {
-	const editFunc = (id) => {
+	const editFunc = id => {
 		props.storeNoteId(id);
 		props.history.push('/edit/note');
 	};
@@ -29,11 +30,17 @@ const ViewNotes = props => {
 					type: 'file',
 					bId: props.bucketId,
 				});
-				swal('Poof! Your imaginary file has been deleted!', {
-					icon: 'success',
-				});
 				props.close();
 			}
+		});
+	};
+
+	const toggleMarker = (e, id, value) => {
+		e.stopPropagation();
+		props.toggleMarkerList({
+			id,
+			type: value,
+			bId: props.bucketId
 		});
 	};
 
@@ -53,10 +60,27 @@ const ViewNotes = props => {
 				</div>
 				<div className="modal-body">
 					<div className="modal-text-header">
-						<div>{props.note.dateUpdated}</div>
+						<div>
+						<div>Updated At: {getFormattedTime(props.note.dateUpdated)}</div>
+						<div>Posted At: {getFormattedTime(props.note.datePosted)}</div>
+						</div>
 						<div>
 							<img src={deletes} alt="Image" onClick={() => deleteFunc(props.note.id)} />
-							<img src={tickEmpty} alt="Image" />
+							{props.note.done ? (
+								<img
+									src={tickFull}
+									alt="Selected"
+									title="Mark It Not Done"
+									onClick={e => toggleMarker(e, props.note.id, 0)}
+								/>
+							) : (
+								<img
+									src={tickEmpty}
+									alt="Not Selected"
+									title="Mark It Done"
+									onClick={e => toggleMarker(e, props.note.id, 1)}
+								/>
+							)}
 							<img src={edit} alt="Image" onClick={() => editFunc(props.note.id)} />
 						</div>
 					</div>
@@ -78,13 +102,18 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 	},
 	storeNoteId: id => {
 		dispatch(storeNoteId(id));
+	},
+	toggleMarkerList: data => {
+		dispatch(toggleMarkerList(data));
 	}
 });
 const mapStateToProps = state => ({
 	bucketId: state.bucketId,
 });
 
-export default withRouter(connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(ViewNotes));
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(ViewNotes)
+);

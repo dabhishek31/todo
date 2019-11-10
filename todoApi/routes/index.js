@@ -8,5 +8,7 @@ router.post('/addList', todoApis.addLists);
 router.post('/addBuckets', todoApis.addBuckets);
 router.post('/getListById', todoApis.getListById);
 router.post('/deleteBucketsNotes', todoApis.deleteBucketsNotes);
+router.post('/updateNotes', todoApis.updateNotes);
+router.post('/toggleUpdater', todoApis.toggleDone);
 
 module.exports = router;

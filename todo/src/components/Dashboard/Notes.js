@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import swal from 'sweetalert';
+import { withRouter } from 'react-router-dom';
 import edit from '../../img/edit.png';
 import deletes from '../../img/delete.png';
 import notes from '../../img/notes.png';
@@ -7,7 +8,8 @@ import tickEmpty from '../../img/tick-empty.png';
 import tickFull from '../../img/tick-full.png';
 import { connect } from 'react-redux';
 import ViewNotes from './ViewNotes';
-import { deleteNoteFromTbl } from '../../actions';
+import { deleteNoteFromTbl, storeNoteId, toggleMarkerList, getNotebyId } from '../../actions';
+import { getFormattedTime } from '../../Utils';
 
 const Notes = props => {
 	const [isShowing, setIsShowing] = useState(false);
@@ -15,7 +17,24 @@ const Notes = props => {
 
 	const openModalHandler = note => {
 		setIsShowing(true);
-		setNote(note);
+		// setNote(note);
+		props.getNotebyId(note.id);
+	};
+
+	const toggleMarker = (e, id, value) => {
+		e.stopPropagation();
+		props.toggleMarkerList({
+			id,
+			type: value,
+			bId: props.bucketId,
+		});
+		
+	};
+
+	const editFunc = (e, id) => {
+		e.stopPropagation();
+		props.storeNoteId(id);
+		props.history.push('/edit/note');
 	};
 
 	const closeModalHandler = () => {
@@ -39,9 +58,6 @@ const Notes = props => {
 					type: 'file',
 					bId: props.bucketId,
 				});
-				swal('Poof! Your imaginary file has been deleted!', {
-					icon: 'success',
-				});
 			}
 		});
 	};
@@ -62,13 +78,30 @@ const Notes = props => {
 									{data.description}
 								</div>
 								<div className="bucket-info">
-									<div>{data.datePosted}</div>
+									<div>{getFormattedTime(data.datePosted)}</div>
 									<div>
-										{/* <div>
-											<input type="checkbox" />
-										</div> */}
-										<img src={tickEmpty} alt="Not Selected" title="Mark It Done" />
-										<img src={edit} alt="Edit" title="Edit Note" />
+										{data.done ? (
+											<img
+												src={tickFull}
+												alt="Selected"
+												title="Mark It Not Done"
+												onClick={e => toggleMarker(e, data.id, 0)}
+											/>
+										) : (
+											<img
+												src={tickEmpty}
+												alt="Not Selected"
+												title="Mark It Done"
+												onClick={e => toggleMarker(e, data.id, 1)}
+											/>
+										)}
+
+										<img
+											src={edit}
+											alt="Edit"
+											title="Edit Note"
+											onClick={e => editFunc(e, data.id)}
+										/>
 										<img
 											src={deletes}
 											alt="Click here to delete buckets"
@@ -88,7 +121,7 @@ const Notes = props => {
 					<ViewNotes
 						getUpdatedBucketsAndNotes={props.getUpdatedBucketsAndNotes}
 						className="modal"
-						note={note}
+						note={props.note}
 						show={isShowing}
 						close={closeModalHandler}
 					/>
@@ -102,12 +135,24 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 	deleteNote: id => {
 		dispatch(deleteNoteFromTbl(id));
 	},
+	storeNoteId: id => {
+		dispatch(storeNoteId(id));
+	},
+	toggleMarkerList: data => {
+		dispatch(toggleMarkerList(data));
+	},
+	getNotebyId: id => {
+    dispatch(getNotebyId(id))
+	},
 });
 const mapStateToProps = state => ({
 	bucketId: state.bucketId,
+	note: state.note,
 });
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Notes);
+export default withRouter(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(Notes)
+);

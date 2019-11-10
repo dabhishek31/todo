@@ -22,8 +22,6 @@ const BucketForm = (props) => {
 	};
 
 	const handleFields = e => {
-    console.log(e.target.name);
-    console.log(e.target.value);
 		setBucketDetails({ ...bucketDetails, [e.target.name]: e.target.value });
 	};
 

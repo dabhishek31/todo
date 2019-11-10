@@ -24,6 +24,7 @@ class index extends Component {
 						buckets={this.props.buckets}
 						bucketId={this.props.bucketId}
 						note={this.props.note}
+						noteFlg={false}
 					/>
 				</div>
 			</div>
