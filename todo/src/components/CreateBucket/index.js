@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../Header';
 import BucketForm from './BucketForm';
-import { getBucketLists, saveBucketList } from '../../actions';
+import { getBucketLists, saveBucketList } from '../../actions/thunk';
 class index extends Component {
 	constructor(props) {
 		super(props);

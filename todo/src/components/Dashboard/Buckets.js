@@ -4,8 +4,9 @@ import swal from 'sweetalert';
 import bucket from '../../img/bucket.png';
 import info from '../../img/info.png';
 import deletes from '../../img/delete.png';
-import { setBucketIdInRedux, deleteNoteFromTbl } from '../../actions';
+import { setBucketIdInRedux } from '../../actions';
 import { getFormattedTime } from '../../Utils';
+import { deleteNoteFromTbl } from '../../actions/thunk';
 
 const Buckets = props => {
 	const setBucketId = (event, id) => {

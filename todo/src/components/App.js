@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Routes from '../routes';
 import Sidebar from './sidebar';
 class App extends Component {
@@ -20,7 +19,4 @@ class App extends Component {
 	}
 }
 
-export default connect(
-	null,
-	null
-)(App);
+export default App;

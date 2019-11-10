@@ -1,5 +1,4 @@
 import React from 'react';
-import bin from '../../img/bin.png';
 import back from '../../img/back.png';
 import Buckets from './Buckets';
 import Notes from './Notes';

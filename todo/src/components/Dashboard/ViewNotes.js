@@ -6,8 +6,9 @@ import deletes from '../../img/delete.png';
 import tickEmpty from '../../img/tick-empty.png';
 import tickFull from '../../img/tick-full.png';
 import { connect } from 'react-redux';
-import { deleteNoteFromTbl, storeNoteId, toggleMarkerList } from '../../actions';
+import { storeNoteId } from '../../actions';
 import { getFormattedTime } from '../../Utils';
+import { deleteNoteFromTbl, toggleMarkerList } from '../../actions/thunk';
 
 const ViewNotes = props => {
 	const editFunc = id => {
@@ -40,7 +41,7 @@ const ViewNotes = props => {
 		props.toggleMarkerList({
 			id,
 			type: value,
-			bId: props.bucketId
+			bId: props.bucketId,
 		});
 	};
 
@@ -61,8 +62,8 @@ const ViewNotes = props => {
 				<div className="modal-body">
 					<div className="modal-text-header">
 						<div>
-						<div>Updated At: {getFormattedTime(props.note.dateUpdated)}</div>
-						<div>Posted At: {getFormattedTime(props.note.datePosted)}</div>
+							<div>Updated At: {getFormattedTime(props.note.dateUpdated)}</div>
+							<div>Posted At: {getFormattedTime(props.note.datePosted)}</div>
 						</div>
 						<div>
 							<img src={deletes} alt="Image" onClick={() => deleteFunc(props.note.id)} />
@@ -105,7 +106,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 	},
 	toggleMarkerList: data => {
 		dispatch(toggleMarkerList(data));
-	}
+	},
 });
 const mapStateToProps = state => ({
 	bucketId: state.bucketId,

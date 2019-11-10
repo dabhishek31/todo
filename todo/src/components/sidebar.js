@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getBucketAndNotes } from '../actions';
+import { getBucketAndNotes } from '../actions/thunk';
 import todoList from '../img/todo-list.png';
 import add from '../img/add.png';
 import folder from '../img/folder.png';

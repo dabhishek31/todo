@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Body from './Body';
 import Header from '../Header';
-import { getBucketAndNotes, getBucketLists, setBucketIdInRedux } from '../../actions';
+import { setBucketIdInRedux } from '../../actions';
+import { getBucketAndNotes, getBucketLists } from '../../actions/thunk';
+
 class index extends Component {
 	constructor(props) {
 		super(props);
