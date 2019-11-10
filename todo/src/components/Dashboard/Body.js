@@ -32,7 +32,7 @@ const Body = props => {
 						}}
 					/>
 				)}
-				<img src={bin} className="sixty" title="Select Multiple Notes To Delete" />
+				{/* <img src={bin} className="sixty" title="Select Multiple Notes To Delete" /> */}
 			</div>
 			<hr />
 			<div className="bodyNotesList">

@@ -2,8 +2,8 @@ import React from 'react';
 
 const TodoForm = props => {
 	const [listDetails, setListDetails] = React.useState({
-		title: '',
-		description: '',
+		title: props.note.title || '',
+		description: props.note.description || '',
 		bucketId: props.bucketId,
 	});
 

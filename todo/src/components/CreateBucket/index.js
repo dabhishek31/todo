@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../Header';
 import BucketForm from './BucketForm';
-import { getBucketLists, saveTodoList } from '../../actions';
+import { getBucketLists, saveBucketList } from '../../actions';
 class index extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
 	}
-	saveBucketLists(data) {
-    console.log(data);
-  }
+	saveBucketLists = (data) => {
+		this.props.saveBucketListToDb(data);
+	}
 	render() {
 		return (
 			<div className="header-route-container">
@@ -36,8 +36,8 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 	getBuckets: bucketId => {
 		dispatch(getBucketLists(bucketId));
 	},
-	saveTodoList: data => {
-		dispatch(saveTodoList(data));
+	saveBucketListToDb: data => {
+		dispatch(saveBucketList(data));
 	},
 });
 

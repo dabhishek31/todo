@@ -58,26 +58,41 @@ const todoApis = {
 			res.json(response);
 		}
 	},
+	addBuckets: (req, res) => {
+		let { bucketName, bucketParent } = req.body.data;
+		if (bucketParent === 1) {
+			bucketParent = 0;
+		}
+		if (bucketName.trim() !== '') {
+			let stmt =
+				'INSERT INTO `todobuckets`(`bucketName`, `bucketParent`, `bucketCreated`, `bucketUpdated`) VALUES (?,?,NOW(),NOW())';
+			let todo = [bucketName, bucketParent];
+			console.log(stmt);
+			console.log(todo);
+			db.query(stmt, todo, (err, result) => {
+				// if (err) throw err;
+				response.data = err;
+				response.success = true;
+				res.json(response);
+			});
+		} else {
+			response.data = {
+				msg: 'Please Give Bucket Name',
+			};
+			response.success = false;
+			res.json(response);
+		}
+	},
 	getListById: (req, res) => {
 		let { id } = req.body;
 		let sql = `SELECT * FROM todoLists WHERE id = ${id}`;
 		db.query(sql, (err, result) => {
 			if (err) throw err;
-			response.data = result;
+			response.data = result[0];
 			response.success = true;
 			res.json(response);
 		});
 	},
-	// getTodoLists: (req, res) => {
-	// 	let query =
-	// 		'SELECT * FROM todoLists JOIN todoBuckets ON todoLists.buckedId = todoBuckets.id ORDER BY todoLists.datePosted DESC';
-	// 	db.query(query, (err, result) => {
-	// 		if (err) throw err;
-	// 		response.data = result;
-	// 		response.success = true;
-	// 		res.json(response);
-	// 	});
-	// },
 	deleteBucketsNotes: (req, res) => {
 		let { id, multiDel, type } = req.body;
 		let query = '';
@@ -89,24 +104,23 @@ const todoApis = {
 			if (type === 'file') {
 				query = `DELETE FROM todoLists WHERE id = ${id}`;
 			} else {
-				query = `DELETE FROM todoBuckets WHERE id =  ${id}`;
-				secondQuery = `DELETE FROM todolists WHERE bucketId =  ${id}`;
+				query = `DELETE FROM todoBuckets WHERE id = ${id}; DELETE FROM todolists WHERE buckedId = ${id}; DELETE FROM todoBuckets WHERE bucketParent = ${id}`;
 			}
 		}
+		console.log(query);
 		db.query(query, (err, result) => {
 			if (err) throw err;
-			if (secondQuery !== '') {
-				db.query(secondQuery, (err, result) => {
-					if (err) throw err;
-					response.data = result;
-					response.success = true;
-					res.json(response);
-				});
-			} else {
-				response.data = result;
-				response.success = true;
-				res.json(response);
-			}
+			// if (secondQuery !== '') {
+			// 	db.query(secondQuery, (err, result) => {
+			// 		if (err) throw err;
+			// 		response.data = result;
+			// 		response.success = true;
+			// 		res.json(response);
+			// 	});
+			// } else {
+			response.data = result;
+			response.success = true;
+			res.json(response);
 		});
 	},
 	// updateTodoBuckets: (req, res) => {

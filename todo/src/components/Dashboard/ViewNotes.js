@@ -1,38 +1,41 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import swal from 'sweetalert';
 import edit from '../../img/edit.png';
 import deletes from '../../img/delete.png';
 import tickEmpty from '../../img/tick-empty.png';
 import tickFull from '../../img/tick-full.png';
 import { connect } from 'react-redux';
-import { deleteNoteFromTbl } from '../../actions';
+import { deleteNoteFromTbl,storeNoteId } from '../../actions';
 
 const ViewNotes = props => {
-	
-	const editFunc = () =>{
+	const editFunc = (id) => {
+		props.storeNoteId(id);
+		props.history.push('/edit/note');
+	};
 
-	}
-
-	const deleteFunc = (id) => {
+	const deleteFunc = id => {
 		swal({
-			title: "Are you sure?",
-			text: "Once deleted, you will not be able to recover this note!",
-			icon: "warning",
+			title: 'Are you sure?',
+			text: 'Once deleted, you will not be able to recover this note!',
+			icon: 'warning',
 			buttons: true,
 			dangerMode: true,
-		})
-		.then((willDelete) => {
+		}).then(willDelete => {
 			if (willDelete) {
 				props.deleteNote({
-					id, multiDel:false, type:'file',bId: props.bucketId,
+					id,
+					multiDel: false,
+					type: 'file',
+					bId: props.bucketId,
 				});
-				swal("Poof! Your imaginary file has been deleted!", {
-					icon: "success",
+				swal('Poof! Your imaginary file has been deleted!', {
+					icon: 'success',
 				});
 				props.close();
 			}
 		});
-	}
+	};
 
 	return (
 		<div>
@@ -52,9 +55,9 @@ const ViewNotes = props => {
 					<div className="modal-text-header">
 						<div>{props.note.dateUpdated}</div>
 						<div>
-							<img src={deletes} alt="Image" onClick={() => deleteFunc(props.note.id)}/>
+							<img src={deletes} alt="Image" onClick={() => deleteFunc(props.note.id)} />
 							<img src={tickEmpty} alt="Image" />
-							<img src={edit} alt="Image" onClick={editFunc}/>
+							<img src={edit} alt="Image" onClick={() => editFunc(props.note.id)} />
 						</div>
 					</div>
 					<p>{props.note.description}</p>
@@ -70,15 +73,18 @@ const ViewNotes = props => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	deleteNote: (id) => {
-		dispatch(deleteNoteFromTbl(id))
+	deleteNote: id => {
+		dispatch(deleteNoteFromTbl(id));
+	},
+	storeNoteId: id => {
+		dispatch(storeNoteId(id));
 	}
 });
 const mapStateToProps = state => ({
 	bucketId: state.bucketId,
 });
 
-export default connect(
+export default withRouter(connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(ViewNotes);
+)(ViewNotes));

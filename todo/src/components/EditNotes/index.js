@@ -1,30 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../Header';
-import TodoForm from './TodoForm';
-import { getBucketLists, saveTodoList } from '../../actions';
+// import TodoForm from '../Dashboard/TodoForm';
+import { getBucketLists, saveTodoList, getNotebyId } from '../../actions';
+
 class index extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {};
 		props.getBuckets();
+		props.getNotebyId(props.noteId);
 	}
 
 	saveTodoLists = data => {
-		this.props.saveTodoList(data);
-	};
-
+    // this.props.saveTodoList(data);
+    console.log(data,'from index');
+  };
+  
 	render() {
 		return (
 			<div className="header-route-container">
 				<Header {...this.props} />
 				<div className="dashboardContents">
-					<TodoForm
+					{/* <TodoForm
 						saveTodoLists={this.saveTodoLists}
 						buckets={this.props.buckets}
 						bucketId={this.props.bucketId}
-						note={this.props.note}
-					/>
+					/> */}
 				</div>
 			</div>
 		);
@@ -33,8 +35,8 @@ class index extends Component {
 
 const mapStateToProps = state => ({
 	buckets: state.buckets,
-	bucketId: state.bucketId,
-	note: state.note,
+  bucketId: state.bucketId,
+  noteId: state.noteId
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
@@ -43,6 +45,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   saveTodoList: data => {
     dispatch(saveTodoList(data))
+  },
+  getNotebyId: id => {
+    dispatch(getNotebyId(id))
   }
 });
 

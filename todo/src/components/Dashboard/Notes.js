@@ -64,9 +64,9 @@ const Notes = props => {
 								<div className="bucket-info">
 									<div>{data.datePosted}</div>
 									<div>
-										<div>
+										{/* <div>
 											<input type="checkbox" />
-										</div>
+										</div> */}
 										<img src={tickEmpty} alt="Not Selected" title="Mark It Done" />
 										<img src={edit} alt="Edit" title="Edit Note" />
 										<img

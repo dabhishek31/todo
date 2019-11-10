@@ -5,7 +5,8 @@ const todoApis = require('../model');
 router.post('/getNoteBucketList', todoApis.getNoteBucketList);
 router.get('/getBucketList', todoApis.getBucketLists);
 router.post('/addList', todoApis.addLists);
-// router.post('/getListById', todoApis.getListById);
+router.post('/addBuckets', todoApis.addBuckets);
+router.post('/getListById', todoApis.getListById);
 router.post('/deleteBucketsNotes', todoApis.deleteBucketsNotes);
 
 module.exports = router;
