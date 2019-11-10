@@ -14,6 +14,11 @@ const TodoForm = props => {
 		if (listDetails.title.trim() !== '') {
 			setErrorMessage('');
 			props.saveTodoLists(listDetails);
+			setListDetails({
+				title: '',
+				description: '',
+				bucketId: props.bucketId,
+			});
 		} else {
 			setErrorMessage('Please provide title of the note');
 		}
@@ -33,15 +38,21 @@ const TodoForm = props => {
 				<form className="create-form" onSubmit={e => saveListForm(e)}>
 					<div className="form-group">
 						<div>* TITLE:</div>
-						<input type="text" name="title" onBlur={e => handleFields(e)} />
+						<input type="text" name="title" value={listDetails.title} onChange={e => handleFields(e)} />
 					</div>
+					{error !== '' && <div className="err">{error}</div>}
 					<div className="form-group">
 						<div>DESCRIPTION:</div>
-						<textarea rows="6" name="description" onBlur={e => handleFields(e)} />
+						<textarea
+							rows="6"
+							name="description"
+							value={listDetails.description}
+							onChange={e => handleFields(e)}
+						/>
 					</div>
 					<div className="form-group">
 						<div>SELECT BUCKET: (OPTIONAL)</div>
-						<select name="bucketId" onChange={e => handleFields(e)}>
+						<select name="bucketId" value={listDetails.bucketId} onChange={e => handleFields(e)}>
 							{props.buckets.length &&
 								props.buckets.map((data, i) => {
 									return (
@@ -52,11 +63,9 @@ const TodoForm = props => {
 								})}
 						</select>
 					</div>
-					{error}
+
 					<div className="form-group">
-						<button type="submit">
-							SAVE
-						</button>
+						<button type="submit">SAVE</button>
 					</div>
 				</form>
 			</div>

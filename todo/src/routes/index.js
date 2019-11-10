@@ -10,6 +10,7 @@ const index = () => {
 			<Route exact path="/" component={Dashboard} />
 			<Route path="/create/note" component={CreateTodo} />
 			<Route path="/create/bucket" component={CreateBucket} />
+			{/* <Route path="/view/note" component={Dashboard} /> */}
 		</>
 	);
 };

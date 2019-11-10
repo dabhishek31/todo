@@ -5,7 +5,7 @@ const response = {
 
 const todoApis = {
 	getNoteBucketList: (req, res) => {
-		let {bucketId} = req.body;
+		let { bucketId } = req.body;
 		let query = '';
 		let sql = '';
 		if (bucketId === 1) {
@@ -57,6 +57,16 @@ const todoApis = {
 			response.success = false;
 			res.json(response);
 		}
+	},
+	getListById: (req, res) => {
+		let { id } = req.body;
+		let sql = `SELECT * FROM todoLists WHERE id = ${id}`;
+		db.query(sql, (err, result) => {
+			if (err) throw err;
+			response.data = result;
+			response.success = true;
+			res.json(response);
+		});
 	},
 	// getTodoLists: (req, res) => {
 	// 	let query =
