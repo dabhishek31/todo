@@ -2,7 +2,9 @@ import { RECEIVE_POSTS, LOADER_TOGGLER } from '../actions';
 
 const initialState = {
 	dashboardData: null,
+	bucketId: 1
 };
+
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {

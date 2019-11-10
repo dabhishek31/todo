@@ -6,7 +6,7 @@ import { getBucketAndNotes } from '../../actions';
 class index extends Component {
 	constructor(props) {
 		super(props);
-		props.getBucketAndNotes();
+		props.getBucketAndNotes(props.bucketId);
 	}
 	render() {
 		return (
@@ -22,11 +22,12 @@ class index extends Component {
 
 const mapStateToProps = state => ({
 	dashboardData: state.dashboardData,
+	bucketId: state.bucketId,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-	getBucketAndNotes: () => {
-		dispatch(getBucketAndNotes());
+	getBucketAndNotes: (bucketId) => {
+		dispatch(getBucketAndNotes(bucketId));
 	},
 });
 

@@ -5,13 +5,22 @@ const response = {
 
 const todoApis = {
 	getNoteBucketList: (req, res) => {
-		let query = 'SELECT * FROM `todoBuckets` ORDER BY bucketCreated DESC';
+		let {bucketId} = req.body;
+		let query = '';
+		let sql = '';
+		if (bucketId === 1) {
+			query = `SELECT * FROM todoBuckets WHERE id != 1 AND bucketParent = 0 ORDER BY bucketCreated DESC`;
+			sql = `SELECT * FROM todoLists WHERE buckedId = 1 ORDER BY datePosted DESC`;
+		} else {
+			query = `SELECT * FROM todoBuckets WHERE id != 1 AND bucketParent = ${bucketId} ORDER BY bucketCreated DESC`;
+			sql = `SELECT * FROM todoLists WHERE buckedId = ${bucketId} ORDER BY datePosted DESC`;
+		}
 		db.query(query, (err, result) => {
 			if (err) throw err;
 			let finalData = {
 				buckets: result,
 			};
-			let sql = 'SELECT * FROM `todoLists` ORDER BY datePosted DESC';
+
 			db.query(sql, (err, result) => {
 				if (err) throw err;
 				response.data = { ...finalData, notes: result };
@@ -34,7 +43,7 @@ const todoApis = {
 		if (title.trim() !== '') {
 			let stmt =
 				'INSERT INTO `todolists`(`title`, `description`, `datePosted`, `dateUpdated`, `buckedId`) VALUES (?,?,NOW(),NOW(),?)';
-			let todo = [title, description,bucketId];
+			let todo = [title, description, bucketId];
 			db.query(stmt, todo, (err, result) => {
 				if (err) throw err;
 				response.data = result;
