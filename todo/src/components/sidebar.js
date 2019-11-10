@@ -1,15 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getBucketAndNotes } from '../actions';
 import todoList from '../img/todo-list.png';
 import add from '../img/add.png';
 import folder from '../img/folder.png';
 import createNote from '../img/createNote.png';
 
-const sidebar = () => {
+const sidebar = props => {
 	return (
 		<div className="sidebarContents">
 			<div className="app-name-wrapper">
-				<Link className="app-name" exact to="/">
+				<Link className="app-name" exact to="/" onClick={() => {
+					props.getBucketAndNotes(1);
+				}}>
 					<img src={todoList} />
 					<div className="app-name-container font-style">
 						<div className="main-text">TO-DO</div>
@@ -28,7 +32,7 @@ const sidebar = () => {
 							BUCKET
 						</div>
 					</div>
-					<img src={add} className="sixty"/>
+					<img src={add} className="sixty" />
 				</Link>
 				<Link to="/create/note" className="sidebar-sub-menu font-style">
 					<img src={createNote} />
@@ -39,11 +43,20 @@ const sidebar = () => {
 							NOTE
 						</div>
 					</div>
-					<img src={add} className="sixty"/>
+					<img src={add} className="sixty" />
 				</Link>
 			</div>
 		</div>
 	);
 };
 
-export default sidebar;
+const mapDispatchToProps = (dispatch, ownProps) => ({
+	getBucketAndNotes: bucketId => {
+		dispatch(getBucketAndNotes(bucketId));
+	},
+});
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(sidebar);

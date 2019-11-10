@@ -6,8 +6,20 @@ import { getBucketAndNotes } from '../../actions';
 class index extends Component {
 	constructor(props) {
 		super(props);
-		props.getBucketAndNotes(props.bucketId);
+		this.getUpdatedBucketsAndNotes(props.bucketId)
 	}
+
+	getUpdatedBucketsAndNotes = (id) => {
+		this.props.getBucketAndNotes(id);
+	}
+
+	shouldComponentUpdate(newProps){
+		if(this.props.bucketId !== newProps.bucketId){
+			this.getUpdatedBucketsAndNotes(newProps.bucketId);
+		}
+		return true;
+	}
+
 	render() {
 		return (
 			<div className="header-route-container">

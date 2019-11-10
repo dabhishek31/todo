@@ -238,6 +238,9 @@ a{
   line-height: 22px;
   letter-spacing: 0.10em;
   margin: auto;
+  white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .bucket-info{
@@ -285,13 +288,13 @@ a{
   color: #FCF6F5;
 }
 
-.form-group input,textarea{
+.form-group input,textarea,select{
   background: #FCF6F5;
   border-radius: 4px;
   width: 100%;
 }
 
-.form-group input{
+.form-group input,select{
   height: 30px;
 }
 
