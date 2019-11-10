@@ -23,7 +23,10 @@ class index extends Component {
 						saveTodoLists={this.saveTodoLists}
 						buckets={this.props.buckets}
 						bucketId={this.props.bucketId}
-						note={this.props.note}
+						note={{
+							title: '',
+							description: '',
+						}}
 						noteFlg={false}
 					/>
 				</div>
@@ -41,10 +44,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	getBuckets: bucketId => {
 		dispatch(getBucketLists(bucketId));
-  },
-  saveTodoList: data => {
-    dispatch(saveTodoList(data))
-  }
+	},
+	saveTodoList: data => {
+		dispatch(saveTodoList(data));
+	},
 });
 
 export default connect(

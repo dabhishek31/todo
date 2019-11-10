@@ -367,6 +367,7 @@ a{
   overflow: hidden;
   overflow-y: scroll;
   max-height: 300px;
+  overflow-wrap: break-word;
 }
 
 .modal-body img{
@@ -429,4 +430,61 @@ a{
 
 .modal-text-header div{
   margin: auto 0;
+}
+
+@media only screen and (max-width:1173px){
+  .app-name img{
+    width: 80px;
+    height: 80px;
+  }
+  .app-name-container{
+    padding: 8px 0px 13px 0px;
+  }
+  .main-text{
+    font-size: 23px;
+  }
+  .sub-text {
+    font-size: 17px !important;
+}
+}
+
+
+@media only screen and (max-width:991px){
+  .todoContainer{
+    display: block;
+    width: 90%;
+  }
+  .sidebarContents{
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+  }
+  .header-route-container{
+    width: 100%;
+  }
+  .app-name{
+    margin: 0px;
+  }
+  .hr-sidebar {
+    border: 0.7px solid #FCF6F5;
+    margin-bottom: 0px;
+}
+}
+
+
+@media only screen and (max-width:575px){
+  .lists {
+    display: block;
+  }
+  .lists div{
+    width: 100%;
+  }
+  .modal-wrapper {
+    width: 95%;
+}
+.modal-body p {
+  height: 150px;
+  overflow: scroll;
+  overflow-wrap: break-word;
+}
 }
